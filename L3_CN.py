@@ -84,3 +84,7 @@ def Collatz(x0):
 
 print("Resultados: ")
 print(Collatz(3732423))
+
+
+
+print('TESTE')
