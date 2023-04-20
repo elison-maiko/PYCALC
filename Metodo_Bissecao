@@ -1,0 +1,47 @@
+import numpy as np
+
+def bissecao(f, a, b, tol=1.0e-5, maxiter=60):
+    '''
+  Aplica o metodo da bissecao na funcao f no intervalo [a,b]
+  
+  Input
+  =====
+  f : funcao
+  a , b : numeros tais que f(a)f(b)<0
+  tol : float (opcional)
+    tolerancia numerica
+  maxiter: inteiro (opcional)
+    numero maximo de iteracoes
+    
+  Output
+  ======
+  x : aproximacao da solucao real x* da equacao f(x*)=0 tal que |x-x*|<tol'''
+
+    iteracao = 0
+    while iteracao < maxiter:
+        x = (a + b) / 2                       # Pega o valor médio do intervalo dado
+        if f(x) == 0 or abs(b - a) < tol:     # Se f(valor medio) for 0 OU o valor de f() for menor q a tolerancia deu certo
+            return x
+        elif f(x) * f(b) < 0:                 # se f(valor medio)*f(b) for negativo atualiza o valor de a  
+            a = x
+        else:
+            b = x                             # se não, atualiza B 
+        iteracao += 1
+
+    #raise Exception("Numero maximo de iteracoes alcancado")
+    return x
+
+
+# Usa f = lambda n: n*np.log2(n)-1000000
+#
+def f(x): 
+    return  x*x*x + np.cos(x)
+
+print("%.50f" % bissecao(f, -5, 5, maxiter=80, tol=2**(-100)))
+##print("%.50f" % bissecao(f, 1.0e4, 1.0e6, maxiter=80, tol=2**(-20)))
+##print("%.50f" % bissecao(f, 1.0e4, 1.0e6, maxiter=80, tol=2**(-50)))
+##print("%.50f" % bissecao(f, 1.0e4, 1.0e6, maxiter=80, tol=2**(-100)))
+#
+# Com a versao acima, mesmo se tirar o "f(x)==0" ainda roda direitinho. Se trocar b com a e deixar o "f(x)==0" roda, mas se tirar dai levanta erro
+
+
